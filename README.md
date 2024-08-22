@@ -1,6 +1,12 @@
 gl | OpenGL Bindings for golang
 ===============================
 
+This is a fork of the [legacy bindings project](https://github.com/go-gl-legacy/gl).
+Read on for details
+
+Getting Started
+---------------
+
 You will need [GLEW](http://glew.sourceforge.net/) at least version 1.5.4.
 
 Once GLEW is installed, you can install this package with `go get`:
