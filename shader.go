@@ -66,7 +66,7 @@ func (shader Shader) Source(source ...string) {
 		defer freeString(csource)
 	}
 
-	C.glShaderSource(C.GLuint(shader), count, (**_Ctype_GLchar)(unsafe.Pointer(&cstrings[0])), (*_Ctype_GLint)(unsafe.Pointer(&length[0])))
+	C.glShaderSource(C.GLuint(shader), count, (**C.GLchar)(unsafe.Pointer(&cstrings[0])), (*C.GLint)(unsafe.Pointer(&length[0])))
 }
 
 func (shader Shader) Compile() { C.glCompileShader(C.GLuint(shader)) }
