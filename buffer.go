@@ -65,7 +65,7 @@ func BufferData(target GLenum, size int, data interface{}, usage GLenum) {
 	C.glBufferData(C.GLenum(target), C.GLsizeiptr(size), ptr(data), C.GLenum(usage))
 }
 
-//  Update a subset of a buffer object's data store
+// Update a subset of a buffer object's data store
 func BufferSubData(target GLenum, offset int, size int, data interface{}) {
 	C.glBufferSubData(C.GLenum(target), C.GLintptr(offset), C.GLsizeiptr(size),
 		ptr(data))
@@ -77,7 +77,7 @@ func GetBufferSubData(target GLenum, offset int, size int, data interface{}) {
 		C.GLsizeiptr(size), ptr(data))
 }
 
-//  Map a buffer object's data store
+// Map a buffer object's data store
 func MapBuffer(target GLenum, access GLenum) unsafe.Pointer {
 	return unsafe.Pointer(C.glMapBuffer(C.GLenum(target), C.GLenum(access)))
 }
@@ -96,17 +96,17 @@ func MapBufferSlice(target GLenum, access GLenum, bytesPerElement int) unsafe.Po
 	})
 }
 
-//  Map a buffer object's data store and return it as a slice
+// Map a buffer object's data store and return it as a slice
 func MapBufferFloat32(target GLenum, access GLenum) []float32 {
 	return *(*[]float32)(MapBufferSlice(target, access, 4))
 }
 
-//  Map a buffer object's data store and return it as a slice
+// Map a buffer object's data store and return it as a slice
 func MapBufferUint32(target GLenum, access GLenum) []uint32 {
 	return *(*[]uint32)(MapBufferSlice(target, access, 4))
 }
 
-//  Unmap a buffer object's data store
+// Unmap a buffer object's data store
 func UnmapBuffer(target GLenum) bool {
 	return goBool(C.glUnmapBuffer(C.GLenum(target)))
 }
