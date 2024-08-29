@@ -25,6 +25,7 @@ type Pointer unsafe.Pointer
 // those types are left for compatibility reasons
 type GLboolean C.GLboolean
 type GLbyte C.GLbyte
+type GLchar C.GLchar
 type GLshort C.GLshort
 type GLint C.GLint
 type GLsizei C.GLsizei

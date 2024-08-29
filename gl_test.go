@@ -34,3 +34,11 @@ func TestPtr(t *testing.T) {
 		}
 	}
 }
+
+func TestExportTypeDefs(t *testing.T) {
+	var x GLchar
+	x = GLchar(65) // 'A' == 65
+	if x != 'A' {
+		t.Fatalf("expected GLchar to behave like a C.char\n")
+	}
+}
