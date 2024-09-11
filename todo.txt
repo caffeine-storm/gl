@@ -1,0 +1,1 @@
+tmckee: the type introspection in gl.go's "ptr" function can be modernized
