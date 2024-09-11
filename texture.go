@@ -32,7 +32,7 @@ func AreTexturesResident(textures []uint, residences []bool) bool {
 	return false
 }
 
-func ActiveTexture(texture GLenum) { C.glActiveTexture(C.GLenum(texture)) }
+func ActiveTexture(texture GLenum)       { C.glActiveTexture(C.GLenum(texture)) }
 func ClientActiveTexture(texture GLenum) { C.glClientActiveTexture(C.GLenum(texture)) }
 
 // Texture
