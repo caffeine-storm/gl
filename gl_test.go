@@ -42,3 +42,12 @@ func TestExportTypeDefs(t *testing.T) {
 		t.Fatalf("expected GLchar to behave like a C.char\n")
 	}
 }
+
+func TestGetGlVersion(t *testing.T) {
+	MustInit()
+	ver := getVersion()
+
+	if ver == "" {
+		t.Fatalf("expected a non-empty GL version string\n")
+	}
+}

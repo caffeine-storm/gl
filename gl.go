@@ -12,8 +12,11 @@ package gl
 // #include "gl.h"
 // void SetGlewExperimental(GLboolean v) {  glewExperimental = v;  }
 import "C"
-import "unsafe"
-import "reflect"
+import (
+	"fmt"
+	"reflect"
+	"unsafe"
+)
 
 type GLenum C.GLenum
 type GLbitfield C.GLbitfield
@@ -1231,4 +1234,18 @@ func Viewport(x int, y int, width int, height int) {
 func Init() GLenum {
 	C.SetGlewExperimental(C.GLboolean(1))
 	return GLenum(C.glewInit())
+}
+
+// Return a string describing the OpenGL version.
+func getVersion() string {
+	return GetString(C.GL_VERSION)
+}
+
+func MustInit() {
+	err := Init()
+	if err != C.GLEW_OK {
+		errPtr := unsafe.Pointer(C.glewGetErrorString(C.GLenum(err)))
+		errString := C.GoString((*C.char)(errPtr))
+		panic(fmt.Sprintf("failed initialization: glewInit returned %q", errString))
+	}
 }
