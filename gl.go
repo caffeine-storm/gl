@@ -62,9 +62,6 @@ func ptr(v interface{}) unsafe.Pointer {
 	rv := reflect.ValueOf(v)
 	var et reflect.Value
 	switch rv.Type().Kind() {
-	case reflect.Uintptr:
-		offset, _ := v.(uintptr)
-		return unsafe.Pointer(offset)
 	case reflect.Ptr:
 		if rv.IsNil() {
 			return unsafe.Pointer(nil)
@@ -76,7 +73,7 @@ func ptr(v interface{}) unsafe.Pointer {
 		}
 		et = rv.Index(0)
 	default:
-		panic("type must be a pointer, a slice, uintptr or nil")
+		panic("type must be a pointer, a slice or nil")
 	}
 
 	return unsafe.Pointer(et.UnsafeAddr())

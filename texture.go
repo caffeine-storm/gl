@@ -5,6 +5,10 @@
 package gl
 
 // #include "gl.h"
+// #include <stdint.h>
+// static void goglTexCoordPointerOffset(int size, GLenum type, int stride, uintptr_t ptr) {
+//     glTexCoordPointer(size, type, stride, (void const *)(ptr));
+// }
 import "C"
 import "unsafe"
 
@@ -32,7 +36,7 @@ func AreTexturesResident(textures []uint, residences []bool) bool {
 	return false
 }
 
-func ActiveTexture(texture GLenum) { C.glActiveTexture(C.GLenum(texture)) }
+func ActiveTexture(texture GLenum)       { C.glActiveTexture(C.GLenum(texture)) }
 func ClientActiveTexture(texture GLenum) { C.glClientActiveTexture(C.GLenum(texture)) }
 
 // Texture
@@ -512,6 +516,10 @@ func TexCoord4sv(v *[4]int16) {
 
 // void glTexCoordPointer (int size, GLenum type, int stride, const GLvoid *pointer)
 func TexCoordPointer(size int, typ GLenum, stride int, pointer interface{}) {
-	C.glTexCoordPointer(C.GLint(size), C.GLenum(typ), C.GLsizei(stride),
-		ptr(pointer))
+	switch v := pointer.(type) {
+	case uintptr:
+		C.goglTexCoordPointerOffset(C.GLint(size), C.GLenum(typ), C.GLsizei(stride), C.uintptr_t(v))
+	default:
+		C.glTexCoordPointer(C.GLint(size), C.GLenum(typ), C.GLsizei(stride), ptr(pointer))
+	}
 }

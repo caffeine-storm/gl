@@ -27,12 +27,20 @@ func TestPtr(t *testing.T) {
 		t.Fatalf("expected %#v, got %#v\n", p, q)
 	}
 
-	// test uinptr
-	for _, n := range []uintptr{0, 1, 2, 42} {
-		if p, q := unsafe.Pointer(n), ptr(n); p != q {
-			t.Fatalf("expected %#v, got %#v\n", p, q)
-		}
-	}
+	// test uintptr panics
+	t.Run("ptr(uintptr(x)) should panic", func(t *testing.T) {
+		defer func() {
+			if e := recover(); e != nil {
+				// succcess case
+			} else {
+				panic("expected a panic")
+			}
+		}()
+
+		ptr(uintptr(42))
+
+		t.Fatalf("we must not reach this statement")
+	})
 }
 
 func TestExportTypeDefs(t *testing.T) {
