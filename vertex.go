@@ -5,6 +5,10 @@
 package gl
 
 // #include "gl.h"
+// #include <stdint.h>
+// static void goglVertexPointerOffset(int size, GLenum type, int stride, uintptr_t ptr) {
+//     glVertexPointer(size, type, stride, (void const *)(ptr));
+// }
 import "C"
 
 // void glVertex2d (float64 x, float64 y)
@@ -129,5 +133,10 @@ func Vertex4sv(v *[4]int16) {
 
 // void glVertexPointer (int size, GLenum type, int stride, const GLvoid *pointer)
 func VertexPointer(size int, typ GLenum, stride int, pointer interface{}) {
-	C.glVertexPointer(C.GLint(size), C.GLenum(typ), C.GLsizei(stride), ptr(pointer))
+	switch v := pointer.(type) {
+	case uintptr:
+		C.goglVertexPointerOffset(C.GLint(size), C.GLenum(typ), C.GLsizei(stride), C.uintptr_t(v))
+	default:
+		C.glVertexPointer(C.GLint(size), C.GLenum(typ), C.GLsizei(stride), ptr(pointer))
+	}
 }
