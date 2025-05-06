@@ -508,7 +508,14 @@ func GetIntegerv(pname GLenum, params []int32) {
 	C.glGetIntegerv(C.GLenum(pname), (*C.GLint)(&params[0]))
 }
 
-// Convenience function for glGetIntegerv
+// Convenience function for glGetIntegerv returning 1 int
+func GetInteger(pname GLenum) int {
+	var v [1]C.GLint
+	C.glGetIntegerv(C.GLenum(pname), &v[0])
+	return int(v[0])
+}
+
+// Convenience function for glGetIntegerv returning 4 ints
 func GetInteger4(pname GLenum) (v0, v1, v2, v3 int) {
 	var values [4]C.GLint
 	C.glGetIntegerv(C.GLenum(pname), &values[0])
