@@ -1,3 +1,3 @@
-module github.com/go-gl-legacy/gl
+module github.com/caffeine-storm/gl
 
 go 1.23
